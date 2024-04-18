@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "798102520637",
+    "project_id": "doankotlin-5dcf3",
+    "storage_bucket": "doankotlin-5dcf3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:798102520637:android:84f6d6517f776079d67b54",
+        "android_client_info": {
+          "package_name": "com.example.doankotlin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZkY_z-CHu4xt_sWYWrHz_dONGloVcwGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
