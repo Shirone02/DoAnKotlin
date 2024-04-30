@@ -24,19 +24,13 @@ public class IntroActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityIntroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        
+
         setVariable();
         getWindow().setStatusBarColor(Color.parseColor("#FFE485"));
     }
 
     private void setVariable() {
-        binding.loginBtn.setOnClickListener(v -> {
-            if(mAuth.getCurrentUser() != null){
-                startActivity(new Intent(IntroActivity.this, MainJavaActivity.class));
-            } else {
-                startActivity(new Intent(IntroActivity.this, LoginActivity.class));
-            }
-        });
+        binding.loginBtn.setOnClickListener(v -> startActivity(new Intent(IntroActivity.this, LoginActivity.class)));
 
         binding.signupBtn.setOnClickListener(v -> startActivity(new Intent(IntroActivity.this, SignupActivity.class)));
     }

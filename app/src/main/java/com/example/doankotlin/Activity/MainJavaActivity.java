@@ -49,6 +49,7 @@ public class MainJavaActivity extends BaseActivity {
         binding.logoutBtn.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(MainJavaActivity.this, LoginActivity.class));
+            finish();
         });
 
         binding.searchBtn.setOnClickListener(v -> {
@@ -61,12 +62,7 @@ public class MainJavaActivity extends BaseActivity {
             }
         });
 
-        binding.cartBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainJavaActivity.this, CartActivity.class));
-            }
-        });
+        binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(MainJavaActivity.this, CartActivity.class)));
     }
 
     private void initBestFood() {
