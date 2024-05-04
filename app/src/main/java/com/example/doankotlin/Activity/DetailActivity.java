@@ -1,14 +1,6 @@
 package com.example.doankotlin.Activity;
 
 import android.os.Bundle;
-import android.view.View;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.bumptech.glide.Glide;
 import com.example.doankotlin.Domain.Foods;
 import com.example.doankotlin.Helper.ManagmentCart;
@@ -65,7 +57,7 @@ public class DetailActivity extends BaseActivity {
 
         binding.addBtn.setOnClickListener(v -> {
             object.setNumberInCart(num);
-            managmentCart.insertFood(object);
+            managmentCart.insertFood("CartList",object);
         });
     }
 

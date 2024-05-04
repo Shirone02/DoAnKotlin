@@ -1,21 +1,23 @@
 package com.example.doankotlin.Activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doankotlin.Adapter.CartAdapter;
-import com.example.doankotlin.Helper.ChangeNumberItemsListener;
+import com.example.doankotlin.Domain.Foods;
 import com.example.doankotlin.Helper.ManagmentCart;
-import com.example.doankotlin.R;
 import com.example.doankotlin.databinding.ActivityCartBinding;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CartActivity extends BaseActivity {
 
@@ -37,7 +39,7 @@ public class CartActivity extends BaseActivity {
     }
 
     private void initList() {
-        if(managmentCart.getListCart().isEmpty()){
+        if(managmentCart.getListCart("CartList").isEmpty()){
             binding.emptyTxt.setVisibility(View.VISIBLE);
             binding.scrollviewCart.setVisibility(View.GONE);
         }else {
@@ -47,7 +49,7 @@ public class CartActivity extends BaseActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         binding.cardView.setLayoutManager(linearLayoutManager);
-        adapter = new CartAdapter(managmentCart.getListCart(), this, this::calculateCart);
+        adapter = new CartAdapter(managmentCart.getListCart("CartList"), this, this::calculateCart);
 
         binding.cardView.setAdapter(adapter);
     }
@@ -56,10 +58,10 @@ public class CartActivity extends BaseActivity {
         double percentTax = 0.04; // percent 4%
         double delivery = 1000; // 1000 VND
 
-        tax = Math.round(managmentCart.getTotalFee()*percentTax*100.0)/100;
+        tax = Math.round(managmentCart.getTotalFee("CartList")*percentTax*100.0)/100;
 
-        double total = Math.round((managmentCart.getTotalFee()+tax+delivery)*100)/100;
-        double itemTotal = Math.round(managmentCart.getTotalFee()*100)/100;
+        double total = Math.round((managmentCart.getTotalFee("CartList")+tax+delivery)*100)/100;
+        double itemTotal = Math.round(managmentCart.getTotalFee("CartList")*100)/100;
 
         binding.totalFeeTxt.setText(itemTotal +"đ");
         binding.taxTxt.setText(tax+"đ");
@@ -70,5 +72,27 @@ public class CartActivity extends BaseActivity {
 
     private void setVariable() {
         binding.backBtn.setOnClickListener(v -> finish());
+        binding.orderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Foods> orderList = managmentCart.getListCart("CartList");
+                FirebaseUser user = mAuth.getCurrentUser();
+
+                Map<String, Object> foodInfo = new HashMap<>();
+                for(int i=0; i<orderList.size();i++) {
+                    DatabaseReference myRef = database.getReference("Orders").child(user.getUid()).child(String.valueOf(i));
+                    Foods food = orderList.get(i);
+                    //myRef.child(String.valueOf(food.getId()));
+                    foodInfo.put("Title", food.getTitle());
+                    foodInfo.put("Quantity", food.getNumberInCart());
+                    foodInfo.put("Total", food.getPrice() * food.getNumberInCart());
+                    foodInfo.put("ImagePath", food.getImagePath());
+
+                    myRef.setValue(foodInfo);
+                    Toast.makeText(CartActivity.this,"Đặt hàng thành công", Toast.LENGTH_SHORT).show();
+                    Log.d("TAG","Data: " + foodInfo);
+                }
+            }
+        });
     }
 }

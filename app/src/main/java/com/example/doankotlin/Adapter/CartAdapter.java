@@ -52,13 +52,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.viewholder> {
                 .load(list.get(position).getImagePath())
                 .transform(new CenterCrop(),new RoundedCorners(30))
                 .into(holder.pic);
-
-        holder.plusItem.setOnClickListener(v -> managmentCart.plusNumberItem(list, position, () -> {
+        holder.plusItem.setOnClickListener(v -> managmentCart.plusNumberItem("CartList",list, position, () -> {
             notifyDataSetChanged();
             changeNumberItemsListener.change();
         }));
 
-        holder.minusItem.setOnClickListener(v -> managmentCart.minusNumberItem(list, position, () -> {
+        holder.minusItem.setOnClickListener(v -> managmentCart.minusNumberItem("CartList",list, position, () -> {
             notifyDataSetChanged();
             changeNumberItemsListener.change();
         }));

@@ -49,7 +49,6 @@ public class LoginActivity extends BaseActivity {
         loginBtn = findViewById(R.id.loginBtn);
         gotoRegister = findViewById(R.id.tvGotoRegister);
 
-
         setVariable();
 
     }
