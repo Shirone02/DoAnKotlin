@@ -13,6 +13,9 @@
         android:theme="@style/Theme.DoAnKotlin"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.AllItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.AddItemActivity"
             android:exported="false" />
         <activity
