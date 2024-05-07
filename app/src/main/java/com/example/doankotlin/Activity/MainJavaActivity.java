@@ -20,6 +20,7 @@ import com.example.doankotlin.Domain.Time;
 import com.example.doankotlin.R;
 import com.example.doankotlin.databinding.ActivityMainJavaBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +37,8 @@ public class MainJavaActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainJavaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        
+
+        initName();
         initLocation();
         initTime();
         initPrice();
@@ -63,6 +65,17 @@ public class MainJavaActivity extends BaseActivity {
         });
 
         binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(MainJavaActivity.this, CartActivity.class)));
+
+        binding.viewAll.setOnClickListener(v -> {
+            Intent intent = new Intent(MainJavaActivity.this, AllItemActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    private void initName(){
+        FirebaseUser user = mAuth.getCurrentUser();
+
+        binding.nameTxt.setText(user.getEmail());
     }
 
     private void initBestFood() {

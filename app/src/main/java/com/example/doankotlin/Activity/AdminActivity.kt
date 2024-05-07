@@ -22,5 +22,10 @@ class AdminActivity : BaseActivity() {
             startActivity(intent)
         }
 
+        binding.seeAll.setOnClickListener {
+            val intent = Intent(this, AllItemActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
