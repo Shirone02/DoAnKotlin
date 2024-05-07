@@ -46,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="@+id/backButton" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/foodName"
                 android:layout_width="0dp"
                 android:layout_height="57dp"
                 android:layout_marginStart="8dp"
@@ -63,7 +63,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/foodPrice"
                 android:layout_width="0dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="24dp"
@@ -73,12 +73,12 @@
                 android:inputType="text"
                 android:paddingLeft="15dp"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/editText"
-                app:layout_constraintStart_toStartOf="@+id/editText"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
+                app:layout_constraintEnd_toEndOf="@+id/foodName"
+                app:layout_constraintStart_toStartOf="@+id/foodName"
+                app:layout_constraintTop_toBottomOf="@+id/foodName" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/foodCategory"
                 android:layout_width="0dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="24dp"
@@ -88,12 +88,12 @@
                 android:inputType="text"
                 android:paddingLeft="15dp"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/editText2"
-                app:layout_constraintStart_toStartOf="@+id/editText2"
-                app:layout_constraintTop_toBottomOf="@+id/editText2" />
+                app:layout_constraintEnd_toEndOf="@+id/foodPrice"
+                app:layout_constraintStart_toStartOf="@+id/foodPrice"
+                app:layout_constraintTop_toBottomOf="@+id/foodPrice" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/foodMinute"
                 android:layout_width="0dp"
                 android:layout_height="57dp"
                 android:layout_marginTop="24dp"
@@ -103,10 +103,10 @@
                 android:inputType="text"
                 android:paddingLeft="15dp"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/editText3"
+                app:layout_constraintEnd_toEndOf="@+id/foodCategory"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/editText3"
-                app:layout_constraintTop_toBottomOf="@+id/editText3" />
+                app:layout_constraintStart_toStartOf="@+id/foodCategory"
+                app:layout_constraintTop_toBottomOf="@+id/foodCategory" />
 
             <TextView
                 android:id="@+id/selectImage"
@@ -120,9 +120,9 @@
                 android:paddingRight="15dp"
                 android:text="Chọn ảnh"
                 android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="@+id/editText4"
-                app:layout_constraintStart_toStartOf="@+id/editText4"
-                app:layout_constraintTop_toBottomOf="@+id/editText4" />
+                app:layout_constraintEnd_toEndOf="@+id/foodMinute"
+                app:layout_constraintStart_toStartOf="@+id/foodMinute"
+                app:layout_constraintTop_toBottomOf="@+id/foodMinute" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView7"
