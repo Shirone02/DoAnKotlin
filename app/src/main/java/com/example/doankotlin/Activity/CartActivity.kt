@@ -1,5 +1,6 @@
 package com.example.doankotlin.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -51,7 +52,7 @@ class CartActivity : BaseActivity() {
         val foodReference: DatabaseReference =
             database.reference.child("Users").child(userId).child("CartItems")
 
-        var list: ArrayList<Foods> = ArrayList()
+        val list: ArrayList<Foods> = ArrayList()
 
         foodReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -67,14 +68,13 @@ class CartActivity : BaseActivity() {
                     setAdapter()
 
                 }
-
             }
 
             private fun setAdapter() {
-                val adapter = CartAdapter(list, this@CartActivity) { calculateCart() }
+                cartAdapter = CartAdapter(list, this@CartActivity) { calculateCart() }
                 binding!!.cardView.layoutManager =
                     LinearLayoutManager(this@CartActivity, LinearLayoutManager.VERTICAL, false)
-                binding!!.cardView.adapter = adapter
+                binding!!.cardView.adapter = cartAdapter
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -101,7 +101,11 @@ class CartActivity : BaseActivity() {
     }
 
     private fun setVariable() {
-        binding!!.backBtn.setOnClickListener { v: View? -> finish() }
+        binding!!.backBtn.setOnClickListener { finish() }
+        binding!!.orderBtn.setOnClickListener {
+            getOrderItemDetail()
+        }
+
         /*binding!!.orderBtn.setOnClickListener {
             val orderList = managmentCart!!.getListCart("CartList")
             val user = mAuth.currentUser
@@ -119,6 +123,39 @@ class CartActivity : BaseActivity() {
                 Log.d("TAG", "Data: $foodInfo")
             }
         }*/
+    }
+
+    private fun getOrderItemDetail() {
+        val  orderReference: DatabaseReference = database.reference.child("Users").child(userId).child("CartItems")
+
+        val listFood: ArrayList<Foods> = ArrayList()
+
+        orderReference.addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (foodSnapshot in snapshot.children) {
+                    val orderItem = foodSnapshot.getValue(CartItems::class.java)
+                    val foods = Foods()
+                    orderItem?.Title.let { foods.title = it }
+                    orderItem?.Price.let { foods.price = it!! }
+                    orderItem?.Quantity.let { foods.numberInCart = it!! }
+                    orderItem?.ImagePath.let { foods.imagePath = it }
+
+                    listFood.add(foods)
+                    orderNow(listFood)
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@CartActivity,"Lỗi order",Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+    }
+
+    private fun orderNow(listFood: ArrayList<Foods>) {
+        val intent = Intent(this@CartActivity, PayOutActivity::class.java)
+        intent.putExtra("listFood", listFood)
+        startActivity(intent)
     }
 
 }
