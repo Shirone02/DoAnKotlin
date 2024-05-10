@@ -47,9 +47,39 @@ class AddItemActivity : BaseActivity() {
             foodName = binding.foodName.text.toString().trim()
             foodPrice = binding.foodPrice.text.toString().trim().toDouble()
             foodCategory = binding.foodCategory.text.toString()
-           /* when(foodCategory){
-                 ->
-            }*/
+            when(foodCategory){
+                "pizza" ->{
+                    foodCategoryId = 0
+                }
+
+                "hamburger" ->{
+                    foodCategoryId = 1
+                }
+
+                "thịt gà" ->{
+                    foodCategoryId = 2
+                }
+
+                "sushi" ->{
+                    foodCategoryId = 3
+                }
+
+                "thịt" ->{
+                    foodCategoryId = 4
+                }
+
+                "bánh mì kẹp xúc xích" ->{
+                    foodCategoryId = 5
+                }
+
+                "đồ uống" ->{
+                    foodCategoryId = 6
+                }
+
+                else ->{
+                    foodCategoryId = 7
+                }
+            }
             foodMinute = binding.foodMinute.text.toString().trim().toInt()
             foodDescription = binding.description.text.toString().trim()
 
@@ -81,12 +111,14 @@ class AddItemActivity : BaseActivity() {
             uploadTask.addOnSuccessListener {
                 imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
                     val newItem = AllMenu(
+                        Id = newItemKey,
                         Title = foodName,
                         Price = foodPrice,
                         foodCategory = foodCategory,
                         TimeValue  = foodMinute,
                         ImagePath = downloadUrl.toString(),
-                        Description = foodDescription
+                        Description = foodDescription,
+                        CategoryId = foodCategoryId
                     )
                     newItemKey?.let { key ->
                             myRef.child(key).setValue(newItem).addOnSuccessListener {

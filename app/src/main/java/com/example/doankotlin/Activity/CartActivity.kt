@@ -32,18 +32,6 @@ class CartActivity : BaseActivity() {
     }
 
     private fun initList() {
-        /*if (managmentCart!!.getListCart("CartList").isEmpty()) {
-            binding!!.emptyTxt.visibility = View.VISIBLE
-            binding!!.scrollviewCart.visibility = View.GONE
-        } else {
-            binding!!.emptyTxt.visibility = View.GONE
-            binding!!.scrollviewCart.visibility = View.VISIBLE
-        }
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding!!.cardView.setLayoutManager(linearLayoutManager)
-        adapter = CartAdapter(managmentCart!!.getListCart("CartList"), this) { calculateCart() }
-        binding!!.cardView.setAdapter(adapter)*/
-
         retrieveCartItems()
     }
 
@@ -105,24 +93,6 @@ class CartActivity : BaseActivity() {
         binding!!.orderBtn.setOnClickListener {
             getOrderItemDetail()
         }
-
-        /*binding!!.orderBtn.setOnClickListener {
-            val orderList = managmentCart!!.getListCart("CartList")
-            val user = mAuth.currentUser
-            val foodInfo: MutableMap<String, Any> = HashMap()
-            for (i in orderList.indices) {
-                val myRef = database.getReference("Orders").child(user!!.uid).child(i.toString())
-                val food = orderList[i]
-                //myRef.child(String.valueOf(food.getId()));
-                foodInfo["Title"] = food.title
-                foodInfo["Quantity"] = food.numberInCart
-                foodInfo["Total"] = food.price * food.numberInCart
-                foodInfo["ImagePath"] = food.imagePath
-                myRef.setValue(foodInfo)
-                Toast.makeText(this@CartActivity, "Đặt hàng thành công", Toast.LENGTH_SHORT).show()
-                Log.d("TAG", "Data: $foodInfo")
-            }
-        }*/
     }
 
     private fun getOrderItemDetail() {
@@ -141,8 +111,8 @@ class CartActivity : BaseActivity() {
                     orderItem?.ImagePath.let { foods.imagePath = it }
 
                     listFood.add(foods)
-                    orderNow(listFood)
                 }
+                orderNow(listFood)
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(this@CartActivity,"Lỗi order",Toast.LENGTH_SHORT).show()

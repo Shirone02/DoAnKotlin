@@ -73,13 +73,11 @@ class CartAdapter (
                 deleteItem(position)
             } else {
                 list[position].numberInCart -= 1
-                changeNumberItem(position, list[position].numberInCart )
+                changeNumberItem(position, list[position].numberInCart)
             }
             notifyDataSetChanged()
             changeNumberItemsListener.change()
         }
-
-        Intent(context, CartActivity::class.java)
 
     }
 

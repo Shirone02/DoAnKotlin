@@ -86,7 +86,7 @@ public class SignupActivity extends BaseActivity {
                         if(binding.cbQTV.isChecked()){
                             userInfo.put("isAdmin", "1");
                         }else if(binding.cbUser.isChecked()){
-                            userInfo.put("isUser", "1");
+                            userInfo.put("isUser", "0");
                         }
 
                         myRef.setValue(userInfo);

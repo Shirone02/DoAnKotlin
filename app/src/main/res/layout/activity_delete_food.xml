@@ -4,22 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.ListFoodsActivity">
-
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".Activity.DeleteFoodActivity">
 
     <ScrollView
-        android:id="@+id/scrollview"
+        android:id="@+id/scrollViewDeleteFood"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +25,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/backBtn"
+                    android:id="@+id/backBtnDeleteFood"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
@@ -45,7 +35,7 @@
                     tools:src="@tools:sample/avatars" />
 
                 <TextView
-                    android:id="@+id/titleTxt"
+                    android:id="@+id/tvDeleteFood"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tất cả đồ ăn"
@@ -66,13 +56,14 @@
                     android:id="@+id/foodListView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:listitem="@layout/viewholder_list_food"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="NotSibling">
 
                 </androidx.recyclerview.widget.RecyclerView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

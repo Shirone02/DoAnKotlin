@@ -70,7 +70,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private val intentExtra: Unit
-        private get() {
+        get() {
             `object` = intent.getSerializableExtra("object") as Foods?
         }
 }

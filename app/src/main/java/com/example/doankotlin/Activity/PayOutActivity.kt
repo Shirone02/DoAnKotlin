@@ -1,5 +1,6 @@
 package com.example.doankotlin.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 
@@ -37,6 +38,7 @@ class PayOutActivity : BaseActivity() {
         binding.totalAmount.isEnabled = false
         binding.totalAmount.setText(totalAmount)
         binding.backButton.setOnClickListener {
+            //startActivity(Intent(this, CartActivity::class.java))
             finish()
         }
         binding.orderButton.setOnClickListener {
@@ -62,6 +64,7 @@ class PayOutActivity : BaseActivity() {
             Toast.makeText(this,"Đặt hàng thành công", Toast.LENGTH_SHORT).show()
             removeItemFromCart()
             addOrderToHistory(orderDetails)
+            startActivity(Intent(this, MainJavaActivity::class.java))
         } .addOnFailureListener {
             Toast.makeText(this, "Đặt hàng thất bại",Toast.LENGTH_SHORT).show()
         }

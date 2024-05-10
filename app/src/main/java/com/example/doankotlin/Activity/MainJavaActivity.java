@@ -70,6 +70,11 @@ public class MainJavaActivity extends BaseActivity {
             Intent intent = new Intent(MainJavaActivity.this, AllItemActivity.class);
             startActivity(intent);
         });
+
+        binding.historyBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainJavaActivity.this, HistoryActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void initName(){

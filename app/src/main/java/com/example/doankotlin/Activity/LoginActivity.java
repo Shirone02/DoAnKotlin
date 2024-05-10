@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity {
                         if (task.isSuccessful()) {
                             checkUserAccessLevel(task.getResult().getUser().getUid());
                         } else {
-                            Toast.makeText(LoginActivity.this, "Xác thực lỗi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Tên đăng nhập hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
                         }
                     });
                 } else {
