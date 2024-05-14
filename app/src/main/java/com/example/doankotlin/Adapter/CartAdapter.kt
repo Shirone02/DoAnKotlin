@@ -153,4 +153,7 @@ class CartAdapter (
 
         })
     }
+    fun getCartItems(): ArrayList<Foods> {
+        return list
+    }
 }

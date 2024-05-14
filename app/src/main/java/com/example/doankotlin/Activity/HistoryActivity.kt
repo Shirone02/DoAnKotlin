@@ -29,6 +29,8 @@ class HistoryActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        binding.recentBuy.visibility = View.INVISIBLE
         binding.backBtn.setOnClickListener { finish() }
 
         retrieveBuyHistory()
@@ -74,7 +76,6 @@ class HistoryActivity : BaseActivity() {
                 if(listOfOrderItems.isNotEmpty()){
                     setDataRecentBuyItem()
                     setPreviousBuyItemsRecyclerView()
-                    binding.progressBar2.visibility = View.INVISIBLE
                 }
             }
             override fun onCancelled(error: DatabaseError) {

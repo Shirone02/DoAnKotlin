@@ -2,7 +2,6 @@ package com.example.doankotlin.Activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.doankotlin.Adapter.CartAdapter
@@ -15,111 +14,84 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
 class CartActivity : BaseActivity() {
-    private var binding: ActivityCartBinding? = null
+    private lateinit var binding: ActivityCartBinding
     private var tax = 0.0
     private lateinit var cartAdapter: CartAdapter
     private lateinit var userId: String
+    private var receivedData = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCartBinding.inflate(layoutInflater)
-        setContentView(binding!!.getRoot())
-        setVariable()
-        calculateCart()
-        initList()
-
-
-    }
-
-    private fun initList() {
+        setContentView(binding.root)
+        setVariables()
         retrieveCartItems()
     }
 
     private fun retrieveCartItems() {
         userId = mAuth.currentUser?.uid ?: ""
-        val foodReference: DatabaseReference =
+        val cartReference: DatabaseReference =
             database.reference.child("Users").child(userId).child("CartItems")
 
-        val list: ArrayList<Foods> = ArrayList()
+        val cartItemList: ArrayList<Foods> = ArrayList()
 
-        foodReference.addListenerForSingleValueEvent(object : ValueEventListener {
+        cartReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                for (foodSnapshot in snapshot.children) {
-                    val cartItems = foodSnapshot.getValue(CartItems::class.java)
-                    val foodItem = Foods()
-                    cartItems?.Title.let { foodItem.title = it }
-                    cartItems?.Price.let { foodItem.price = it!! }
-                    cartItems?.ImagePath.let { foodItem.imagePath = it }
-                    cartItems?.Quantity.let { foodItem.numberInCart = it!! }
-
-                    list.add(foodItem)
-                    setAdapter()
-
+                cartItemList.clear()
+                receivedData = 0.0 // Reset receivedData
+                for (cartSnapshot in snapshot.children) {
+                    val cartItems = cartSnapshot.getValue(CartItems::class.java)
+                    cartItems?.let {
+                        val foodItem = Foods().apply {
+                            title = it.Title
+                            price = it.Price ?: 0
+                            imagePath = it.ImagePath
+                            numberInCart = it.Quantity ?: 0
+                        }
+                        cartItemList.add(foodItem)
+                        receivedData += foodItem.price * foodItem.numberInCart
+                    }
                 }
-            }
-
-            private fun setAdapter() {
-                cartAdapter = CartAdapter(list, this@CartActivity) { calculateCart() }
-                binding!!.cardView.layoutManager =
-                    LinearLayoutManager(this@CartActivity, LinearLayoutManager.VERTICAL, false)
-                binding!!.cardView.adapter = cartAdapter
+                setAdapter(cartItemList)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@CartActivity, "Lỗi", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CartActivity, "Error retrieving cart items", Toast.LENGTH_SHORT).show()
             }
-
         })
+    }
 
+    private fun setAdapter(cartItems: ArrayList<Foods>) {
+        cartAdapter = CartAdapter(cartItems, this@CartActivity) {
+            calculateCart()
+        }
+        binding.cardView.layoutManager = LinearLayoutManager(this@CartActivity)
+        binding.cardView.adapter = cartAdapter
+
+        // Calculate cart total initially
+        calculateCart()
     }
 
     private fun calculateCart() {
-        val percentTax = 0.04 // percent 4%
+        val percentTax = 0.04 // 4%
         val delivery = 1000.0 // 1000 VND
-        val receivedData = intent.getDoubleExtra("feeEachItem", 0.0)
-        tax =
-            (Math.round( receivedData * percentTax * 100.0) / 100).toDouble()
-        val total =
-            (Math.round((receivedData + tax + delivery) * 100) / 100).toDouble()
-        val itemTotal = (Math.round((receivedData * 100).toDouble()) / 100).toDouble()
-        binding!!.totalFeeTxt.text = itemTotal.toString() + "đ"
-        binding!!.taxTxt.text = tax.toString() + "đ"
-        binding!!.deliveryTxt.text = delivery.toString() + "đ"
-        binding!!.totalTxt.text = total.toString() + "đ"
+
+        tax = (Math.round(receivedData * percentTax * 100.0) / 100).toDouble()
+        val total = (Math.round((receivedData + tax + delivery) * 100) / 100).toDouble()
+        val itemTotal = (Math.round(receivedData * 100) / 100).toDouble()
+
+        binding.totalFeeTxt.text = "${itemTotal}đ"
+        binding.taxTxt.text = "${tax}đ"
+        binding.deliveryTxt.text = "${delivery}đ"
+        binding.totalTxt.text = "${total}đ"
     }
 
-    private fun setVariable() {
-        binding!!.backBtn.setOnClickListener { finish() }
-        binding!!.orderBtn.setOnClickListener {
-            getOrderItemDetail()
+    private fun setVariables() {
+        binding.backBtn.setOnClickListener { finish() }
+        binding.orderBtn.setOnClickListener {
+            // Directly pass cartItemList to orderNow function
+            orderNow(cartAdapter.getCartItems())
         }
-    }
-
-    private fun getOrderItemDetail() {
-        val  orderReference: DatabaseReference = database.reference.child("Users").child(userId).child("CartItems")
-
-        val listFood: ArrayList<Foods> = ArrayList()
-
-        orderReference.addListenerForSingleValueEvent(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (foodSnapshot in snapshot.children) {
-                    val orderItem = foodSnapshot.getValue(CartItems::class.java)
-                    val foods = Foods()
-                    orderItem?.Title.let { foods.title = it }
-                    orderItem?.Price.let { foods.price = it!! }
-                    orderItem?.Quantity.let { foods.numberInCart = it!! }
-                    orderItem?.ImagePath.let { foods.imagePath = it }
-
-                    listFood.add(foods)
-                }
-                orderNow(listFood)
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@CartActivity,"Lỗi order",Toast.LENGTH_SHORT).show()
-            }
-
-        })
-
     }
 
     private fun orderNow(listFood: ArrayList<Foods>) {
@@ -127,5 +99,4 @@ class CartActivity : BaseActivity() {
         intent.putExtra("listFood", listFood)
         startActivity(intent)
     }
-
 }
