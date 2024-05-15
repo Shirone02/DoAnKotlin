@@ -76,6 +76,9 @@ class HistoryActivity : BaseActivity() {
                 if(listOfOrderItems.isNotEmpty()){
                     setDataRecentBuyItem()
                     setPreviousBuyItemsRecyclerView()
+                } else {
+                    binding.emptyTxt.visibility = View.VISIBLE
+                    binding.scrollview.visibility = View.GONE
                 }
             }
             override fun onCancelled(error: DatabaseError) {

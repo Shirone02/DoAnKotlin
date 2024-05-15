@@ -2,6 +2,7 @@ package com.example.doankotlin.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.doankotlin.Adapter.CartAdapter
@@ -51,6 +52,13 @@ class CartActivity : BaseActivity() {
                         cartItemList.add(foodItem)
                         receivedData += foodItem.price * foodItem.numberInCart
                     }
+                }
+                if(cartItemList.isEmpty()){
+                    binding.emptyTxt.visibility = View.VISIBLE
+                    binding.scrollviewCart.visibility = View.GONE
+                } else {
+                    binding.emptyTxt.visibility = View.GONE
+                    binding.scrollviewCart.visibility = View.VISIBLE
                 }
                 setAdapter(cartItemList)
             }

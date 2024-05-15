@@ -39,7 +39,7 @@
                     android:id="@+id/titleHideUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="All User"
+                    android:text="Tất cả người dùng"
                     android:textColor="@color/blue_grey"
                     android:textSize="32sp"
                     android:textStyle="bold"

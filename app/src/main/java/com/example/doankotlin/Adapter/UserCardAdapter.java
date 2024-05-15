@@ -1,5 +1,6 @@
 package com.example.doankotlin.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.doankotlin.Domain.User;
 import com.example.doankotlin.R;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.UserCardViewHolder> {
     private ArrayList<User> userList;
@@ -28,11 +30,19 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.UserCa
         return new UserCardViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull UserCardViewHolder holder, int position) {
         User user = userList.get(position);
         holder.orderNumberTextView.setText(String.valueOf(position + 1));
         holder.emailTextView.setText(user.getEmail());
+        if (user.getIsUser()!= null) {
+            if (user.getIsUser().equals("0") ) {
+                holder.isUserTextView.setText("User");
+            } else {
+                holder.isUserTextView.setText("Admin");
+            }
+        }
     }
 
     @Override
@@ -41,12 +51,13 @@ public class UserCardAdapter extends RecyclerView.Adapter<UserCardAdapter.UserCa
     }
 
     public class UserCardViewHolder extends RecyclerView.ViewHolder {
-        TextView orderNumberTextView, emailTextView;
+        TextView orderNumberTextView, emailTextView, isUserTextView;
 
         public UserCardViewHolder(@NonNull View itemView) {
             super(itemView);
             orderNumberTextView = itemView.findViewById(R.id.orderNumberTextView);
             emailTextView = itemView.findViewById(R.id.emailTextView);
+            isUserTextView = itemView.findViewById(R.id.isUserTextView);
         }
     }
 }

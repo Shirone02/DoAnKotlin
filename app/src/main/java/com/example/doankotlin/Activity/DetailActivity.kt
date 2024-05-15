@@ -54,6 +54,7 @@ class DetailActivity : BaseActivity() {
             /*object.setNumberInCart(num);
             managmentCart.insertFood("CartList",object);*/
             addItemToCart()
+            Toast.makeText(this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show()
         }
     }
 

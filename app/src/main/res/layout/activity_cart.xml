@@ -12,8 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Giỏ hàng của bạn trống"
-        android:visibility="gone"
         android:textColor="@color/blue_grey"
+        android:textSize="30dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/scrollviewCart"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +48,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false">
-
             </androidx.recyclerview.widget.RecyclerView>
 
             <LinearLayout
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="Tổng phụ"
+                    android:text="Tổng tiền hàng"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

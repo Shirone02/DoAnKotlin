@@ -125,7 +125,7 @@ class CartAdapter (
     private fun removeItem(position: Int, uniqueKey: String) {
         if (uniqueKey != null){
             cartItemsReferences.child(uniqueKey).removeValue().addOnSuccessListener {
-                list.removeAt(position)
+                //list.removeAt(position)
                 notifyItemRemoved(position)
                 notifyItemRangeChanged(position,list.size)
             }.addOnFailureListener {
