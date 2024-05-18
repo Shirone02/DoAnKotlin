@@ -62,7 +62,7 @@ class PendingOrderActivity : BaseActivity() ,PendingOrderAdapter.OnItemClicked {
             val food = Foods()
             orderItem.userName?.let { listOfName.add(it) }
             orderItem.totalPrice?.let { listOfTotalPrice.add(it)}
-            orderItem.listFoods?.size.let { quantity = it!! }
+            //orderItem.listFoods?.size.let { quantity = it!! }
             orderItem.listFoods!![0].imagePath.let { listOfImageFirstFoodOrder.add(it) }
             list.add(food)
         }

@@ -56,11 +56,7 @@ public class ListFoodsActivity extends BaseActivity {
         ArrayList<Foods> list = new ArrayList<>();
 
         Query query;
-        if(isSearch){
-            query = myRef.orderByChild("Title").startAt(searchText).endAt(searchText + '\uf8ff');
-        } else {
-            query = myRef.orderByChild("CategoryId").equalTo(categoryId);
-        }
+        query = myRef.orderByChild("CategoryId").equalTo(categoryId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

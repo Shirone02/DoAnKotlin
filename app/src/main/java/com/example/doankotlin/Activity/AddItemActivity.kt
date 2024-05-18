@@ -44,46 +44,50 @@ class AddItemActivity : BaseActivity() {
         }
 
         binding.AddItemButton.setOnClickListener {
-            foodName = binding.foodName.text.toString().trim()
-            foodPrice = binding.foodPrice.text.toString().trim().toDouble()
-            foodCategory = binding.foodCategory.text.toString()
-            when(foodCategory){
-                "pizza" ->{
-                    foodCategoryId = 0
-                }
+            if (!(binding.foodName.text.isBlank() || binding.foodPrice.text.isBlank() || binding.foodCategory.text.isBlank() ||
+                        binding.foodMinute.text.isBlank() || binding.description.text.isBlank())){
+                foodName = binding.foodName.text.toString().trim()
+                foodPrice = binding.foodPrice.text.toString().trim().toDouble()
+                foodCategory = binding.foodCategory.text.toString()
+                when(foodCategory){
+                    "pizza" ->{
+                        foodCategoryId = 0
+                    }
 
-                "hamburger" ->{
-                    foodCategoryId = 1
-                }
+                    "hamburger" ->{
+                        foodCategoryId = 1
+                    }
 
-                "thịt gà" ->{
-                    foodCategoryId = 2
-                }
+                    "thịt gà" ->{
+                        foodCategoryId = 2
+                    }
 
-                "sushi" ->{
-                    foodCategoryId = 3
-                }
+                    "sushi" ->{
+                        foodCategoryId = 3
+                    }
 
-                "thịt" ->{
-                    foodCategoryId = 4
-                }
+                    "thịt" ->{
+                        foodCategoryId = 4
+                    }
 
-                "bánh mì kẹp xúc xích" ->{
-                    foodCategoryId = 5
-                }
+                    "bánh mì kẹp xúc xích" ->{
+                        foodCategoryId = 5
+                    }
 
-                "đồ uống" ->{
-                    foodCategoryId = 6
-                }
+                    "đồ uống" ->{
+                        foodCategoryId = 6
+                    }
 
-                else ->{
-                    foodCategoryId = 7
+                    else ->{
+                        foodCategoryId = 7
+                    }
                 }
+                foodMinute = binding.foodMinute.text.toString().trim().toInt()
+                foodDescription = binding.description.text.toString().trim()
             }
-            foodMinute = binding.foodMinute.text.toString().trim().toInt()
-            foodDescription = binding.description.text.toString().trim()
 
-            if (!(foodName.isBlank() || foodPrice.isNaN() || foodCategory.isBlank() || foodPrice.isNaN() || foodDescription.isBlank())) {
+            if (!(binding.foodName.text.isBlank() || binding.foodPrice.text.isBlank() || binding.foodCategory.text.isBlank() ||
+                        binding.foodMinute.text.isBlank() || binding.description.text.isBlank())) {
                 uploadData()
                 Toast.makeText(this, "Thêm thành công", Toast.LENGTH_SHORT).show()
                 finish()

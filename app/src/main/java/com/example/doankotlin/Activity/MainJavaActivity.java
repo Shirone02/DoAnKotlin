@@ -39,9 +39,6 @@ public class MainJavaActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         initName();
-        /*initLocation();
-        initTime();
-        initPrice();*/
         initBestFood();
         initCategory();
         setVariable();
@@ -54,14 +51,9 @@ public class MainJavaActivity extends BaseActivity {
             finish();
         });
 
-        binding.searchBtn.setOnClickListener(v -> {
-            String text = binding.searchEdt.getText().toString();
-            if(!text.isEmpty()){
-                Intent intent = new Intent(MainJavaActivity.this, ListFoodsActivity.class);
-                intent.putExtra("text", text);
-                intent.putExtra("isSearch", true);
-                startActivity(intent);
-            }
+        binding.llSearch.setOnClickListener(v -> {
+            Intent intent = new Intent(MainJavaActivity.this, SearchActivity.class);
+            startActivity(intent);
         });
 
         binding.cartBtn.setOnClickListener(v -> startActivity(new Intent(MainJavaActivity.this, CartActivity.class)));

@@ -256,7 +256,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:padding="8dp"
-        app:tint="@color/blue_grey"
+        app:tint="@color/red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/arrow" />
