@@ -7,6 +7,7 @@ import android.os.Bundle
 
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -48,6 +49,8 @@ class HistoryActivity : BaseActivity() {
         val itemPushKey = listOfOrderItems[0].itemPushKey
         val completeOrderReference = database.reference.child("CompletedOrder").child(itemPushKey!!)
         completeOrderReference.child("paymentReceived").setValue(true)
+        Toast.makeText(this, "Đã nhận hàng thành công", Toast.LENGTH_SHORT).show()
+        binding.receivedButton.visibility = View.INVISIBLE
     }
 
     private fun seeItemsRecentBuy() {
@@ -76,6 +79,7 @@ class HistoryActivity : BaseActivity() {
                 if(listOfOrderItems.isNotEmpty()){
                     setDataRecentBuyItem()
                     setPreviousBuyItemsRecyclerView()
+                    binding.emptyTxt.visibility = View.INVISIBLE
                 } else {
                     binding.emptyTxt.visibility = View.VISIBLE
                     binding.scrollview.visibility = View.GONE
