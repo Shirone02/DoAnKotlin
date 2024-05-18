@@ -59,6 +59,11 @@ class LoginActivity : BaseActivity() {
 
             override fun afterTextChanged(s: Editable) {}
         })
+
+        binding!!.tvForgotPassword.setOnClickListener {
+            startActivity( Intent(this, ResetPasswordActivity::class.java))
+            finish()
+        }
     }
 
     private fun setVariable() {
@@ -89,6 +94,7 @@ class LoginActivity : BaseActivity() {
         }
         binding!!.tvGotoRegister.setOnClickListener { v: View? ->
             startActivity(Intent(this@LoginActivity, SignupActivity::class.java))
+            finish()
         }
     }
 

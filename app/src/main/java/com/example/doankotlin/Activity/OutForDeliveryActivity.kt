@@ -1,6 +1,7 @@
 package com.example.doankotlin.Activity
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.doankotlin.Adapter.DeliveryAdapter
 import com.example.doankotlin.Domain.OrderDetails
@@ -38,8 +39,13 @@ class OutForDeliveryActivity : BaseActivity() {
                         listOfCompleteOrderList.add(it)
                     }
                 }
-                listOfCompleteOrderList.reverse()
-                setDataIntoRecyclerView()
+                if(listOfCompleteOrderList.isEmpty()){
+                    binding.emptyTxt.visibility = View.VISIBLE
+                } else {
+                    binding.emptyTxt.visibility = View.INVISIBLE
+                    listOfCompleteOrderList.reverse()
+                    setDataIntoRecyclerView()
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

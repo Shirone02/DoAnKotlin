@@ -67,6 +67,8 @@ public class MainJavaActivity extends BaseActivity {
             Intent intent = new Intent(MainJavaActivity.this, HistoryActivity.class);
             startActivity(intent);
         });
+
+
     }
 
     private void initName(){

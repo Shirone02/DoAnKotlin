@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -93,5 +95,6 @@ public class DeleteFoodAdapter extends RecyclerView.Adapter<DeleteFoodAdapter.vi
         // Notify the adapter that the item has been removed
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, items.size());
+        Toast.makeText(context, "Xoá thành công", Toast.LENGTH_SHORT).show();
     }
 }

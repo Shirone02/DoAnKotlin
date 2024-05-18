@@ -83,6 +83,7 @@ class SignupActivity : BaseActivity() {
         }
         binding!!.tvGotoLogin.setOnClickListener { v: View? ->
             startActivity(Intent(this@SignupActivity, LoginActivity::class.java))
+            finish()
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.doankotlin.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,7 +50,15 @@ class PendingOrderActivity : BaseActivity() ,PendingOrderAdapter.OnItemClicked {
                         listOfOrderItem.add(it)
                     }
                 }
-                addDataToListForRecyclerView()
+
+                if(listOfOrderItem.isEmpty()){
+                    binding.emptyTxt.visibility = View.VISIBLE
+                    binding.scrollview.visibility = View.GONE
+                } else {
+                    binding.emptyTxt.visibility = View.INVISIBLE
+                    binding.scrollview.visibility = View.VISIBLE
+                    addDataToListForRecyclerView()
+                }
             }
             override fun onCancelled(error: DatabaseError) {
 
