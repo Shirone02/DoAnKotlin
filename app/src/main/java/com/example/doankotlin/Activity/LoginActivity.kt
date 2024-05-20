@@ -62,7 +62,6 @@ class LoginActivity : BaseActivity() {
 
         binding!!.tvForgotPassword.setOnClickListener {
             startActivity( Intent(this, ResetPasswordActivity::class.java))
-            finish()
         }
     }
 
