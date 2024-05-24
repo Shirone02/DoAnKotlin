@@ -54,7 +54,7 @@ class DetailActivity : BaseActivity() {
             /*object.setNumberInCart(num);
             managmentCart.insertFood("CartList",object);*/
             addItemToCart()
-            Toast.makeText(this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this@DetailActivity, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -64,7 +64,7 @@ class DetailActivity : BaseActivity() {
 
         val cartItem = CartItems(`object`!!.title,`object`!!.price,`object`!!.imagePath , num)
         myRef.child("Users").child(userId).child("CartItems").push().setValue(cartItem).addOnSuccessListener {
-            Toast.makeText(this, "Thêm thành công", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Thêm vào giỏ hàng thành công", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener{
             Toast.makeText(this, "Thêm không thành công", Toast.LENGTH_SHORT).show()
         }
