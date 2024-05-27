@@ -36,7 +36,7 @@ class PayOutActivity : BaseActivity() {
 
         totalAmount = calculateTotalAmount().toString() + "đ"
         binding.totalAmount.isEnabled = false
-        binding.totalAmount.setText(totalAmount)
+        binding.totalAmount.text = totalAmount
         binding.backButton.setOnClickListener {
             //startActivity(Intent(this, CartActivity::class.java))
             finish()
@@ -45,7 +45,7 @@ class PayOutActivity : BaseActivity() {
             name = binding.name.text.toString().trim()
             address = binding.address.text.toString().trim()
             phone = binding.phone.text.toString().trim()
-            if(name.isBlank() && address.isBlank() && phone.isBlank()){
+            if(name.isEmpty() && address.isEmpty() && phone.isEmpty()){
                 Toast.makeText(this, "Vui lòng nhập thông tin",Toast.LENGTH_SHORT).show()
             } else {
                 placeOrder()

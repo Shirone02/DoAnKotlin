@@ -39,7 +39,7 @@ class HistoryActivity : BaseActivity() {
         binding.recentBuy.visibility = View.INVISIBLE
         binding.backBtn.setOnClickListener { finish() }
 
-        startTimer()
+        retrieveBuyHistory()
 
         binding.recentBuy.setOnClickListener {
             seeItemsRecentBuy()
@@ -48,30 +48,6 @@ class HistoryActivity : BaseActivity() {
         binding.receivedButton.setOnClickListener {
             updateOrderStatus()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        stopTimer()
-    }
-
-    private fun stopTimer() {
-        timer?.cancel()
-        timerTask?.cancel()
-        timer = null
-        timerTask = null
-    }
-
-    private fun startTimer() {
-        timer = Timer()
-        timerTask = object : TimerTask() {
-            override fun run() {
-                runOnUiThread {
-                    retrieveBuyHistory()
-                }
-            }
-        }
-        timer?.schedule(timerTask, 0, 1000) // Run every 1 seconds
     }
 
     private fun updateOrderStatus() {

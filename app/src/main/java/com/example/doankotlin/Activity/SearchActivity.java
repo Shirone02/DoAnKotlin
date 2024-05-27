@@ -70,7 +70,7 @@ public class SearchActivity extends BaseActivity {
         }
 
         if(filteredList.isEmpty()){
-            Toast.makeText(this, "Không có đồ ăn", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Không có đồ ăn", Toast.LENGTH_SHORT).show();
             binding.emptyTxtSearch.setVisibility(View.VISIBLE);
             binding.scrollviewSearch.setVisibility(View.INVISIBLE);
         } else {
